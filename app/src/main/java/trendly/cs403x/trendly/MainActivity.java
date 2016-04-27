@@ -2,6 +2,7 @@ package trendly.cs403x.trendly;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
         menuListView = (ListView) findViewById(R.id.menu_list_drawer);
 
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.main_layout_container, new MainFragment(), null)
+            Fragment mainFragment = new MainFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_layout_container, mainFragment, null)
                     .commit();
         }
 
@@ -87,22 +89,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Load fragment based on clicked item.
+                MainFragment mainFragment = new MainFragment();
+                BlankFragment blankFragment = new BlankFragment();
                 switch (position) {
                     case 0:
-                        MainFragment mainFragment = new MainFragment();
-                        getFragmentManager().beginTransaction()
+                        getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_layout_container, mainFragment, null)
                                 .commit();
                         break;
                     case 1:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout_container, blankFragment, null)
+                                .commit();
                         break;
                     case 2:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout_container, blankFragment, null)
+                                .commit();
                         break;
                     case 3:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout_container, blankFragment, null)
+                                .commit();
+                        break;
+                    case 4:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_layout_container, blankFragment, null)
+                                .commit();
                         break;
                     default:
                         break;
                 }
+                drawerLayout.closeDrawer(menuListView);
             }
         });
 
