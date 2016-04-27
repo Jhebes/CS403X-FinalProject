@@ -1,16 +1,14 @@
 <resources>
     <string name="app_name">Trendly</string>
-    <string name="action_settings">Settings</string>
     <string-array name="hamburger_menu_list_items">
+        <item>Home</item>
         <item>Upload</item>
         <item>Liked Near Me</item>
         <item>Browse</item>
         <item>My Profile</item>
     </string-array>
-    <string-array name="right_side_menu_list_items">
-        <item>Favorites</item>
-        <item>Cart</item>
-    </string-array>
+    <string name="favorites">Favorites</string>
+    <string name="cart">Cart</string>
     <string name="menu_open">Open menu</string>
     <string name="menu_close">Close menu</string>
 </resources>
