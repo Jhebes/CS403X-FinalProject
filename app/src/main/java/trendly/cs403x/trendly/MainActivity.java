@@ -2,7 +2,6 @@ package trendly.cs403x.trendly;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         menuListView = (ListView) findViewById(R.id.menu_list_drawer);
 
         if (savedInstanceState == null) {
-            Fragment mainFragment = new MainFragment();
+            MyFragment myFragment = new MyFragment();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_layout_container, mainFragment, null)
+                    .replace(R.id.main_layout_container, myFragment, null)
                     .commit();
         }
 
@@ -89,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Load fragment based on clicked item.
-                MainFragment mainFragment = new MainFragment();
+                MyFragment myFragment = new MyFragment();
                 BlankFragment blankFragment = new BlankFragment();
                 switch (position) {
                     case 0:
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.main_layout_container, mainFragment, null)
+                                .replace(R.id.main_layout_container, myFragment, null)
                                 .commit();
                         break;
                     case 1:

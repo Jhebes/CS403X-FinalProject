@@ -1,11 +1,14 @@
 package trendly.cs403x.trendly;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
@@ -17,7 +20,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-public class MyActivity extends Activity {
+public class MyFragment extends Fragment {
 
     private ArrayList<String> al;
     private ArrayAdapter<String> arrayAdapter;
@@ -25,13 +28,9 @@ public class MyActivity extends Activity {
 
     @InjectView(R.id.frame) SwipeFlingAdapterView flingContainer;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
-        ButterKnife.inject(this);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_my, container, false);
+        ButterKnife.inject(this, view);
 
         al = new ArrayList<>();
         al.add("php");
@@ -43,7 +42,7 @@ public class MyActivity extends Activity {
         al.add("css");
         al.add("javascript");
 
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
+        arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.item, R.id.helloText, al);
 
 
         flingContainer.setAdapter(arrayAdapter);
@@ -61,12 +60,12 @@ public class MyActivity extends Activity {
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
-                makeToast(MyActivity.this, "Left!");
+                makeToast(getActivity(), "Left!");
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                makeToast(MyActivity.this, "Right!");
+                makeToast(getActivity(), "Right!");
             }
 
             @Override
@@ -91,10 +90,11 @@ public class MyActivity extends Activity {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                makeToast(MyActivity.this, "Clicked!");
+                makeToast(getActivity(), "Clicked!");
             }
         });
 
+        return view;
     }
 
     static void makeToast(Context ctx, String s){
