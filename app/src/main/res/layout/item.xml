@@ -11,7 +11,7 @@
         android:textColor="@android:color/white"
         android:background="#E339"
         android:gravity="center"
-        tools:text="@string/hello_world"
+        tools:text="Hello World"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
