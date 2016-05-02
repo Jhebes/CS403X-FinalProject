@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Trendly</string>
+    <string-array name="hamburger_menu_list_items">
+        <item>Home</item>
+        <item>Upload</item>
+        <item>Liked Near Me</item>
+        <item>Browse</item>
+        <item>My Profile</item>
+    </string-array>
+    <string-array name="home_tab_bar_collections">
+        <item>Pants</item>
+        <item>Shirts</item>
+    </string-array>
+    <string name="favorites">Favorites</string>
+    <string name="cart">Cart</string>
+    <string name="menu_open">Open menu</string>
+    <string name="menu_close">Close menu</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
