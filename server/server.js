@@ -56,11 +56,18 @@ app.post( '/rest', function( req, res ){
                 });
                 res.send( JSON.stringify( items ) );
             });
-        }else if( body.reqType == "like" ){
+        }else if( body.reqType == "addlike" ){
             db.like( body.itemId, parseFloat( body.lat ), parseFloat( body.lng ) );
             var resp = new Object();
             resp.result = "Ok";
             res.send( JSON.stringify( resp ) );
+        }else if( body.reqType == "addfavorite" ){
+            db.userName2Id( body.userId ).then( function( id ){
+                db.addUserFavorite( id.id, body.itemId );
+                var resp = new Object();
+                resp.result = "Ok";
+                res.send( JSON.stringify( resp ) );
+            });
         }
 
     });
@@ -75,6 +82,5 @@ console.log( "\n\n ^^ Just ignore that\n" );
 // Launch the server
 var port = process.env.PORT || 5000;
 app.listen( port, function( ) {
-
     console.log( "Listening on " + port );
 });

@@ -28,7 +28,8 @@ module.exports = {
                         +   "owner TEXT NOT NULL,"
                         +   "item TEXT NOT NULL,"
                         +   "PRIMARY KEY (owner, item),"
-                        +   "FOREIGN KEY (item) REFERENCES clothing(identifier)"
+                        +   "FOREIGN KEY (item) REFERENCES clothing(identifier),"
+                        +   "FOREIGN KEY (owner) REFERENCES users(id)"
                         +   ")"
                 );
 
@@ -166,6 +167,17 @@ module.exports = {
 
         });
         return p_done.promise;
+
+    },
+    addUserFavorite: function( userID, itemID ) {
+        try{
+            var stmt = db.prepare("INSERT INTO favorites (owner,item) VALUES (?,?);");
+            stmt.run( userID, itemID );
+            stmt.finalize( );
+            return results;
+        }catch( e ){
+            return null;
+        }
 
     },
     getUserFavorites: function( userID, count ) {
