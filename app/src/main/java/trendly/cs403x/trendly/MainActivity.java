@@ -1,5 +1,6 @@
 package trendly.cs403x.trendly;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -64,8 +65,14 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_favorites || id == R.id.action_cart) {
-            return true;
+        if (id == R.id.action_favorites) {
+            Intent i = new Intent(MainActivity.this, FavoritesActivity.class);
+            startActivity(i);
+        }
+
+        if (id == R.id.action_cart) {
+            Intent i = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(i);
         }
 
         // Activate the navigation drawer toggle
