@@ -34,7 +34,6 @@ app.post( '/rest', function( req, res ){
                     q.all( p_items ).then( function( items ){
                         items = items.map( function( i ){
                             i.photo = "/img/" + i.identifier + ".jpg";
-                            delete i.identifier;
                             return i;
                         });
                         res.send( JSON.stringify( items ) );
@@ -42,19 +41,27 @@ app.post( '/rest', function( req, res ){
                 });
             });
         }else if( body.reqType == "nearby" ){
-
-        }else if( body.reqType == "category" ){
-            console.log( "c");
-            db.getItemsByCategory( body.category, body.count ).then( function( items ){
+            db.getItemsByPopular( body.lat, body.lng, body.range, body.count ).then( function( items ){
                 items = items.map( function( i ){
-                    i.photo = "/img/" + i.identifier + ".jpg";
-                    delete i.identifier;
+                    i.photo = "/img/" + i.item + ".jpg";
                     return i;
                 });
                 res.send( JSON.stringify( items ) );
             });
+        }else if( body.reqType == "category" ){
+            db.getItemsByCategory( body.category, body.count ).then( function( items ){
+                items = items.map( function( i ){
+                    i.photo = "/img/" + i.identifier + ".jpg";
+                    return i;
+                });
+                res.send( JSON.stringify( items ) );
+            });
+        }else if( body.reqType == "like" ){
+            db.like( body.itemId, parseFloat( body.lat ), parseFloat( body.lng ) );
+            var resp = new Object();
+            resp.result = "Ok";
+            res.send( JSON.stringify( resp ) );
         }
-
 
     });
 });

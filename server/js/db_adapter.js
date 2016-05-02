@@ -56,6 +56,16 @@ module.exports = {
                         +   "PRIMARY KEY(collectionName, item)"
                         +   ")"
                 );
+
+                db.run( "CREATE TABLE likes ("
+                        +   "item TEXT NOT NULL,"
+                        +   "lat FLOAT NOT NULL,"
+                        +   "lng FLOAT NOT NULL,"
+                        +   "FOREIGN KEY item REFERENCES clothing(identifier),"
+                        +   "PRIMARY KEY(item, lat, lng)"
+                        +   ")"
+                );
+
             });
         };
     },
@@ -87,6 +97,36 @@ module.exports = {
         }catch( e ){
             return null;
         }
+    },
+    like: function( item, lat, lng ) {
+        try{
+            var stmt = db.prepare("INSERT INTO likes (item, lat, lng) VALUES (?,?,?);");
+            stmt.run( item, lat, lng );
+            stmt.finalize( );
+            return results;
+        }catch( e ){
+            return null;
+        }
+    },
+    getItemsByPopular: function( lat, lng, range, cnt ) {
+        var p_done = q.defer( );
+        db.serialize( function( ) {
+            if( !exists ) {
+                return null;
+            }
+            try{
+                var stmt = db.prepare("SELECT item,itemName,brandName,category,extraTags FROM (SELECT item,count(*) as cnt FROM likes WHERE (abs(? - lat) + abs(? - lng)) < ? GROUP BY item) JOIN clothing ON item = identifier ORDER BY cnt DESC LIMIT ?;");
+                stmt.all( lat, lng, parseInt( range ), cnt, function( err, results ){
+                    p_done.resolve( results );
+                    stmt.finalize( );
+                });
+            }catch( e ){
+                return null;
+            }
+
+        });
+        return p_done.promise;
+
     },
     getItemById: function( itemId ) {
         var p_done = q.defer( );
