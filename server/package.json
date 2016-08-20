@@ -1,0 +1,16 @@
+{
+  "name": "Server",
+  "version": "0.0.1",
+  "description": "CS403X Final Project",
+  "author": "Josh Hebert",
+  "private": true,
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "~4.9.0",
+    "q": "^1.4.1",
+    "sqlite3": "^3.1.3"
+  }
+}
